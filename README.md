@@ -1,0 +1,2 @@
+# njpo-1
+NJPO - ZADANIE 1 - SINGLETON
