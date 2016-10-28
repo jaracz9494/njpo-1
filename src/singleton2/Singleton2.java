@@ -22,39 +22,64 @@ class Blackjack {
     public void Blackjack() {
         klawisz klawisz = new klawisz();
         Random rand = new Random();
-        int card = rand.nextInt(9)+2;
-        int l_wartosc=0;
-        int reka[] = new int[5];
+        int wynik=0;
+        int reka[] = new int[50];
         
-        int talia[] = new int[11];
-        for (int i=1; i<10; i++) {
+        int talia[] = new int[12];
+        for (int i=2; i<12; i++) {
             talia[i] = 4;
         }
         talia[10]=16;
         
-        reka[0]= rand.nextInt(10)+2;
-        reka[1]= rand.nextInt(10)+2;
-        l_wartosc = reka[0]+reka[1];
         
-        for (int i=0; l_wartosc<21; i++) {
+        int test=rand.nextInt(10)+2;
+        talia[test]-=1;
+        reka[0]= test;
+        test=rand.nextInt(10)+2;
+        talia[test]-=1;
+        reka[1]= test;
+        wynik = reka[0]+reka[1];
+        
+        
+        for (int i=0; i<21; i++) {
             int pozrek=0;
+            for (int z=0; z<12; z++) {
+                System.out.print(talia[z]+ " ");
+            }
             System.out.println();
             System.out.println("---------BLACKJACK----------");
-            System.out.println("(karty numerowane sa od 1-11 i maja takie same wartosci)");
-            System.out.println("karty:");
+            System.out.println("(karty numerowane sa od 2-11 i maja takie same wartosci)");
+            System.out.print("karty:");
             for (pozrek=0; reka[pozrek]!=0; pozrek++){
                 System.out.print(" " + reka[pozrek]);
             }
             System.out.println();
-            System.out.println("łączna wartość: "+ l_wartosc);
+            System.out.println("łączna wartość: "+ wynik);
             System.out.println("1 - dobierz karte");
             System.out.println("2 - sprawdzam!");
-            switch (klawisz.klawisz()) {
-                case 1: reka[pozrek + 1] = rand.nextInt(10)+2;
-                break;
-                
-                case 2: break;
+            int x=0;
+            while (x==0) {
+                x=klawisz.klawisz();
+                switch (x) {
+                    case 1: 
+                        int z=rand.nextInt(10)+2;
+                        while (talia[z]==0) {
+                            z=rand.nextInt(10)+2;
+                        }
+                        
+                        talia[z]-=1;
+                        reka[pozrek] = z;
+                        wynik=wynik + reka[pozrek];
+                    break;
+
+                    case 2: break;
+
+                    default: System.out.println("Błędny wybór");
+                    x=0;
+                    break;
+                }
             }
+            if (x==2) break;
         }
     }
 }
@@ -123,11 +148,12 @@ public class Singleton2 {
         // System.out.println(Singleton.inst().wartosc());
       //  System.out.println(Singleton.inst().zw_wartosc());
         
+        
+        while (wybor==0) { 
         System.out.println("WYBIERZ GRE");
         System.out.println("1 - Blackjack");
         System.out.println("2 - Jednoręki Bandyta");
-        
-        while (wybor==0) {   
+        System.out.println("3 - Wyjście");
             wybor = klawisz.klawisz();
             switch (wybor) {
                 case 1: black.Blackjack();
@@ -136,10 +162,15 @@ public class Singleton2 {
                 case 2: bandyta.J_Bandyta();
                 break;
                     
+                case 3: break;
+                    
                 default: System.out.println("Błędny wybór");
                 break;
-            }           
+            } 
+            if (wybor==3) {            
+            } else {
             wybor = 0;
+            }
         }
         
         
