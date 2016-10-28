@@ -178,16 +178,18 @@ class J_Bandyta {
                 }
             }
         
-            if (z==1) linia1=x;
-            if (z==2) linia2=x;
-            if (z==3) linia3=x;
-            
-            for (int i=0; i<3; i++) {
-                System.out.print(x[i]+" ");
-            }
-            System.out.println();
-            
+            if (z==1) for (int i=0; i<3; i++) linia1[i]=x[i];
+            if (z==2) for (int i=0; i<3; i++) linia2[i]=x[i];
+            if (z==3) for (int i=0; i<3; i++) linia3[i]=x[i];  
         }
+        
+        System.out.println("-----JEDNORĘKI BANDYTA-----");
+        System.out.println("══════════");
+        for (int i=0; i<3; i++) {
+            System.out.println("     "+ linia1[i]+" "+linia2[i]+" "+linia3[i]);  
+        }
+        System.out.println("══════════");
+        
     }
 }
 
