@@ -20,130 +20,166 @@ class klawisz{
 class Blackjack {
     
     public void Blackjack() {
-        klawisz klawisz = new klawisz();
-        Random rand = new Random();
-        int wynik=0, krupier=0;
-        int reka[] = new int[20];
-        int reka_k[] = new int [20];
-        int pozrek=0;
-        
-        int talia[] = new int[12];
-        for (int i=2; i<12; i++) {
-            talia[i] = 4;
-        }
-        talia[10]=16;
-        
-        
-        int test=rand.nextInt(10)+2;
-        talia[test]-=1;
-        reka[0]= test;
-        test=rand.nextInt(10)+2;
-        talia[test]-=1;
-        reka[1]= test;
-        wynik = reka[0]+reka[1];
-        
-        test=rand.nextInt(10)+2;
-        talia [test]-=1;
-        reka_k[0]=test;
-        test=rand.nextInt(10)+2;
-        talia [test]-=1;
-        reka_k[0]=test;
-        krupier = reka_k[0] + reka_k[1];
-        
-        
-        while (wynik<21) {
-            pozrek=0;
-            for (int z=0; z<12; z++) {
-                System.out.print(talia[z]+ " ");
-            }           
-            
-            System.out.println();  
-            
-            System.out.println("KASA KASYNA: "+ Singleton.inst().wartosc());
-            System.out.println("-----BLACKJACK-----BLACKJACK-----BLACKJACK-----");
-            System.out.println("(karty numerowane sa od 2-11 i maja takie same wartosci)");
-            System.out.println("odkryta karta krupiera: "+ reka_k[0]);
-            System.out.print("karty:");
-            for (pozrek=0; reka[pozrek]!=0; pozrek++){
-                System.out.print(" " + reka[pozrek]);
-            }
-            System.out.println();
-            System.out.println("łączna wartość: "+ wynik);
-            System.out.println("1 - dobierz karte");
-            System.out.println("2 - sprawdzam!");
-            int x=0;
-            while (x==0) {
-                x=klawisz.klawisz();
-                switch (x) {
-                    case 1: 
-                        int z=rand.nextInt(10)+2;
-                        while (talia[z]==0) {
-                            z=rand.nextInt(10)+2;
-                        }
-                        
-                        talia[z]-=1;
-                        reka[pozrek] = z;
-                        wynik=wynik + reka[pozrek];
-                        if (wynik>21) x=2;
-                    break;
+        int wybor=1;
+        while (wybor==1) {
+            klawisz klawisz = new klawisz();
+            Random rand = new Random();
+            int wynik=0, krupier=0, x=0;
 
-                    case 2: break;
+            int reka[] = new int[20];
+            int reka_k[] = new int [20];
+            int pozrek=0;
 
-                    default: System.out.println("Błędny wybór");
-                    x=0;
-                    break;
-                }
+            int talia[] = new int[12];
+            for (int i=2; i<12; i++) {
+                talia[i] = 4;
             }
-            if (x==2) break;
-        }       
-        if (wynik>21) {
-            System.out.println("--------PRZEGRAŁEŚ--------");
-            Singleton.inst().zw_wartosc();
-            System.out.print("karty:");
-            for (pozrek=0; reka[pozrek]!=0; pozrek++){
-                System.out.print(" " + reka[pozrek]);
-            }
-            System.out.println();
-            System.out.println("łączna wartość: "+ wynik);
-            System.out.println("przekroczyłeś wartość 21!");
-        }       
-        if (wynik<=21) {
-            for (int i=2; krupier<16; i++) {
-                int z=rand.nextInt(10)+2;
-                while (talia[z]==0) {
-                    z=rand.nextInt(10)+2;
-                }
-                        
-                talia[z]-=1;
-                reka_k[i] = z;
-                krupier = krupier + reka_k[i];
-            }
+            talia[10]=16;
+
+
+            int test=rand.nextInt(10)+2;
+            talia[test]-=1;
+            reka[0]= test;
+            test=rand.nextInt(10)+2;
+            talia[test]-=1;
+            reka[1]= test;
+            wynik = reka[0]+reka[1];
+
+            test=rand.nextInt(10)+2;
+            talia [test]-=1;
+            reka_k[0]=test;
+            test=rand.nextInt(10)+2;
+            talia [test]-=1;
+            reka_k[1]=test;
+            krupier = reka_k[0] + reka_k[1];
             
-            if (krupier>21) {
-                pozrek=krupier;
-                krupier = 0;              
-            }
             
-            if (wynik>krupier) {
-                System.out.println("-------WYGRAŁEŚ------");
-                Singleton.inst().zm_wartosc();
-                
-                if (krupier == 0) {
-                    System.out.println("krupier przekroczył 21!");
-                    System.out.println("krupier miał: "+pozrek);
-                } else{
-                    System.out.println("krupier miał: "+krupier);
+
+            while (wynik<21) {
+                pozrek=0;
+                for (int z=0; z<12; z++) {
+                    System.out.print(talia[z]+ " ");
+                }           
+
+                System.out.println();  
+
+                System.out.println("KASA KASYNA: "+ Singleton.inst().wartosc());
+                System.out.println("-----BLACKJACK-----BLACKJACK-----BLACKJACK-----");
+                System.out.println("(karty numerowane sa od 2-11 i maja takie same wartosci)");
+                System.out.println("odkryta karta krupiera: "+ reka_k[0]);
+                System.out.print("karty:");
+                for (pozrek=0; reka[pozrek]!=0; pozrek++){
+                    System.out.print(" " + reka[pozrek]);
                 }
-            }
-            if (wynik==krupier) {
-                System.out.println("-------REMIS------");
-                System.out.println("Wasz wynik: " + wynik);
-            }
-            if (wynik<krupier) {
+                System.out.println();
+                System.out.println("łączna wartość: "+ wynik);
+                System.out.println("1 - dobierz karte");
+                System.out.println("2 - sprawdzam!");
+                x=0;
+                while (x==0) {
+                    x=klawisz.klawisz();
+                    switch (x) {
+                        case 1: 
+                            int z=rand.nextInt(10)+2;
+                            while (talia[z]==0) {
+                                z=rand.nextInt(10)+2;
+                            }
+
+                            talia[z]-=1;
+                            reka[pozrek] = z;
+                            wynik=wynik + reka[pozrek];
+                            if (wynik>21) x=2;
+                        break;
+
+                        case 2: break;
+
+                        default: System.out.println("Błędny wybór");
+                        x=0;
+                        break;
+                    }
+                }
+                if (x==2) break;
+            }       
+            if (wynik>21) {
                 System.out.println("--------PRZEGRAŁEŚ--------");
                 Singleton.inst().zw_wartosc();
-                System.out.println("krupier miał wynik: " + krupier);
+                System.out.print("karty:");
+                for (pozrek=0; reka[pozrek]!=0; pozrek++){
+                    System.out.print(" " + reka[pozrek]);
+                }
+                System.out.println();
+                System.out.println("łączna wartość: "+ wynik);
+                System.out.println("przekroczyłeś wartość 21!");
+            }       
+            if (wynik<=21 && x==2) {               
+                
+                for (int i=2; krupier<=wynik; i++) {
+                    int z=rand.nextInt(10)+2;
+                    while (talia[z]==0) {
+                        z=rand.nextInt(10)+2;
+                    }
+
+                    talia[z]-=1;
+                    reka_k[i] = z;
+                    krupier = krupier + reka_k[i];
+                    
+                    
+                    
+                }
+                
+                System.out.print("karty krupiera:");
+                for (pozrek=0; reka_k[pozrek]!=0; pozrek++){
+                    System.out.print(" " + reka_k[pozrek]);
+                }
+                System.out.println();
+
+                if (krupier>21) {
+                    pozrek=krupier;
+                    krupier = 0;              
+                }
+
+                if (wynik>krupier) {
+                    System.out.println("-------WYGRAŁEŚ------");
+                    Singleton.inst().zm_wartosc();
+
+                    if (krupier == 0) {
+                        System.out.println("krupier przekroczył 21!");
+                        System.out.println("krupier miał: "+pozrek);
+                    } else{
+                        System.out.println("krupier miał: "+krupier);
+                    }
+                }
+                if (wynik==krupier) {
+                    System.out.println("-------REMIS------");
+                    System.out.println("Wasz wynik: " + wynik);
+                }
+                if (wynik<krupier) {
+                    System.out.println("--------PRZEGRAŁEŚ--------");
+                    Singleton.inst().zw_wartosc();
+                    System.out.println("krupier miał wynik: " + krupier);
+                }
             }
+        if (x==2) {
+            System.out.println("1 - JESZCZE RAZ!");
+            System.out.println("2 - Wyjście");
+            wybor = klawisz.klawisz();
+            while (wybor==0) {
+                switch (wybor) {
+                    case 1: break;
+
+                    case 2:
+                        wybor=2;
+                        break;
+
+                    default: System.out.println("Błędny wybór");
+                    break;
+                }
+                if (wybor==2) {            
+                } else {
+                wybor = 0;
+                }
+            }
+        }
         }
     }
 }
@@ -189,21 +225,22 @@ class J_Bandyta {
 
             System.out.println("KASA KASYNA: "+ Singleton.inst().wartosc());
             System.out.println("-----JEDNORĘKI BANDYTA-----");
-            System.out.println("(wygrywasz jeśli w linii środkowej lub po skosie są te same cyfry)");
-            System.out.println("══════════");
+            System.out.println("(Wygrywasz jeśli w linii środkowej lub po skosie są te same cyfry.");
+            System.out.println("Stawka wygranej to 500!)");
+            System.out.println("╔════════╗");
             for (int i=0; i<3; i++) {
-                System.out.println("     "+ linia1[i]+" "+linia2[i]+" "+linia3[i]);  
+                System.out.println("║----"+ linia1[i]+" "+linia2[i]+" "+linia3[i]+ "----|");  
             }
-            System.out.println("══════════");
+            System.out.println("╚════════╝");
             Singleton.inst().zw_wartosc();
 
             if (linia1[1]==linia2[1] && linia2[1]==linia3[1]){
-                System.out.println("!WYGRANA! - w linii!");
+                System.out.println("$$$ !WYGRANA! $$$ - w linii!");
                 wygrana = true;
                 Singleton.inst().zm_wartosc2();         
             }
             if ((linia1[0]==linia2[1] && linia2[1]==linia3[1]) || linia1[2]==linia2[1] && linia2[1]==linia3[0]) {
-                System.out.println("!WYGRANA! - po skosie!");
+                System.out.println("$$$ !WYGRANA! $$$ - po skosie!");
                 wygrana = true;
                 Singleton.inst().zm_wartosc2();
             }
@@ -266,7 +303,7 @@ class Singleton {
     }
     
     public void zm_wartosc2 () {
-        fundusze -= 200;
+        fundusze -= 500;
     }
     
     
@@ -297,7 +334,6 @@ public class Singleton2 {
       //  System.out.println(Singleton.inst().zw_wartosc());
         
         System.out.println("Stawka początkowa w każdej grze to 100.");
-        System.out.println("Wygrywa się zawsze 2X stawki.");
         while (wybor==0) { 
         System.out.println("KASA KASYNA: "+ Singleton.inst().wartosc());      
         System.out.println("WYBIERZ GRE");
@@ -306,12 +342,10 @@ public class Singleton2 {
         System.out.println("3 - Wyjście");
             wybor = klawisz.klawisz();
             switch (wybor) {
-                case 1: black.Blackjack();
-                        System.out.println("Wciśnij 1 aby zakończyć");
-                        klawisz.klawisz();                      
+                case 1: black.Blackjack();                    
                 break;
                     
-                case 2: bandyta.J_Bandyta();
+                case 2: bandyta.J_Bandyta();               
                 break;
                     
                 case 3: break;
