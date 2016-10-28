@@ -22,8 +22,10 @@ class Blackjack {
     public void Blackjack() {
         klawisz klawisz = new klawisz();
         Random rand = new Random();
-        int wynik=0;
-        int reka[] = new int[50];
+        int wynik=0, krupier=0;
+        int reka[] = new int[20];
+        int reka_k[] = new int [20];
+        int pozrek=0;
         
         int talia[] = new int[12];
         for (int i=2; i<12; i++) {
@@ -40,15 +42,26 @@ class Blackjack {
         reka[1]= test;
         wynik = reka[0]+reka[1];
         
+        test=rand.nextInt(10)+2;
+        talia [test]-=1;
+        reka_k[0]=test;
+        test=rand.nextInt(10)+2;
+        talia [test]-=1;
+        reka_k[0]=test;
+        krupier = reka_k[0] + reka_k[1];
         
-        for (int i=0; i<21; i++) {
-            int pozrek=0;
+        
+        while (wynik<21) {
+            pozrek=0;
             for (int z=0; z<12; z++) {
                 System.out.print(talia[z]+ " ");
-            }
-            System.out.println();
-            System.out.println("---------BLACKJACK----------");
+            }           
+            
+            System.out.println();                       
+            
+            System.out.println("-----BLACKJACK-----BLACKJACK-----BLACKJACK-----");
             System.out.println("(karty numerowane sa od 2-11 i maja takie same wartosci)");
+            System.out.println("odkryta karta krupiera: "+ reka_k[0]);
             System.out.print("karty:");
             for (pozrek=0; reka[pozrek]!=0; pozrek++){
                 System.out.print(" " + reka[pozrek]);
@@ -70,6 +83,7 @@ class Blackjack {
                         talia[z]-=1;
                         reka[pozrek] = z;
                         wynik=wynik + reka[pozrek];
+                        if (wynik>21) x=2;
                     break;
 
                     case 2: break;
@@ -80,6 +94,52 @@ class Blackjack {
                 }
             }
             if (x==2) break;
+        }       
+        if (wynik>21) {
+            System.out.println("--------PRZEGRAŁEŚ--------");
+            System.out.print("karty:");
+            for (pozrek=0; reka[pozrek]!=0; pozrek++){
+                System.out.print(" " + reka[pozrek]);
+            }
+            System.out.println();
+            System.out.println("łączna wartość: "+ wynik);
+            System.out.println("przekroczyłeś wartość 21!");
+        }       
+        if (wynik<=21) {
+            for (int i=2; krupier<16; i++) {
+                int z=rand.nextInt(10)+2;
+                while (talia[z]==0) {
+                    z=rand.nextInt(10)+2;
+                }
+                        
+                talia[z]-=1;
+                reka_k[i] = z;
+                krupier = krupier + reka_k[i];
+            }
+            
+            if (krupier>21) {
+                pozrek=krupier;
+                krupier = 0;              
+            }
+            
+            if (wynik>krupier) {
+                System.out.println("-------WYGRAŁEŚ------");
+                
+                if (krupier == 0) {
+                    System.out.println("krupier przekroczył 21!");
+                    System.out.println("krupier miał: "+pozrek);
+                } else{
+                    System.out.println("krupier miał: "+krupier);
+                }
+            }
+            if (wynik==krupier) {
+                System.out.println("-------REMIS------");
+                System.out.println("Wasz wynik: " + wynik);
+            }
+            if (wynik<krupier) {
+                System.out.println("--------PRZEGRAŁEŚ--------");
+                System.out.println("krupier miał wynik: " + krupier);
+            }
         }
     }
 }
@@ -157,6 +217,8 @@ public class Singleton2 {
             wybor = klawisz.klawisz();
             switch (wybor) {
                 case 1: black.Blackjack();
+                        System.out.println("Wciśnij 1 aby zakończyć");
+                        klawisz.klawisz();                      
                 break;
                     
                 case 2: bandyta.J_Bandyta();
