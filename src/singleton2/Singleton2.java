@@ -17,7 +17,7 @@ class klawisz{
     }
 }
 
-class Blackjack {
+class GraczWBlackjacka {
     
     public void Blackjack() {
         int wybor=1;
@@ -37,29 +37,26 @@ class Blackjack {
             talia[10]=16;
 
 
-            int test=rand.nextInt(10)+2;
-            talia[test]-=1;
-            reka[0]= test;
-            test=rand.nextInt(10)+2;
-            talia[test]-=1;
-            reka[1]= test;
+            x=rand.nextInt(10)+2;
+            talia[x]-=1;
+            reka[0]= x;
+            x=rand.nextInt(10)+2;
+            talia[x]-=1;
+            reka[1]= x;
             wynik = reka[0]+reka[1];
 
-            test=rand.nextInt(10)+2;
-            talia [test]-=1;
-            reka_k[0]=test;
-            test=rand.nextInt(10)+2;
-            talia [test]-=1;
-            reka_k[1]=test;
+            x=rand.nextInt(10)+2;
+            talia [x]-=1;
+            reka_k[0]=x;
+            x=rand.nextInt(10)+2;
+            talia [x]-=1;
+            reka_k[1]=x;
             krupier = reka_k[0] + reka_k[1];
-            
+            x=0;
             
 
             while (wynik<21) {
-                pozrek=0;
-                for (int z=0; z<12; z++) {
-                    System.out.print(talia[z]+ " ");
-                }           
+                pozrek=0;           
 
                 System.out.println();  
 
@@ -185,7 +182,7 @@ class Blackjack {
 }
 
 
-class J_Bandyta {
+class GraczWJednorekiegoBandyte {
         
     public void J_Bandyta() {
         klawisz klawisz = new klawisz();
@@ -322,16 +319,12 @@ public class Singleton2 {
      */
     public static void main(String[] args) {
         
-        Blackjack black = new Blackjack();
-        J_Bandyta bandyta = new J_Bandyta();
+        GraczWBlackjacka black = new GraczWBlackjacka();
+        GraczWJednorekiegoBandyte bandyta = new GraczWJednorekiegoBandyte();
         klawisz klawisz = new klawisz();
         
         int wybor = 0;
-        
 
-        
-        // System.out.println(Singleton.inst().wartosc());
-      //  System.out.println(Singleton.inst().zw_wartosc());
         
         System.out.println("Stawka początkowa w każdej grze to 100.");
         while (wybor==0) { 
@@ -360,16 +353,6 @@ public class Singleton2 {
         }
         
         
-        /*
-        int i=0;
-        while (i<card) {
-            System.out.print(card + " ");
-            card = rand.nextInt(9)+2;
-            System.out.println(card);
-            
-            i++;
-        }
-        */
         
     }
     
