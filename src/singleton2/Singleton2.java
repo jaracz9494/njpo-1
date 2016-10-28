@@ -59,6 +59,7 @@ class Blackjack {
             
             System.out.println();                       
             
+            System.out.println("KASA KASYNA: "+ Singleton.inst().wartosc());
             System.out.println("-----BLACKJACK-----BLACKJACK-----BLACKJACK-----");
             System.out.println("(karty numerowane sa od 2-11 i maja takie same wartosci)");
             System.out.println("odkryta karta krupiera: "+ reka_k[0]);
@@ -97,6 +98,7 @@ class Blackjack {
         }       
         if (wynik>21) {
             System.out.println("--------PRZEGRAŁEŚ--------");
+            Singleton.inst().zw_wartosc();
             System.out.print("karty:");
             for (pozrek=0; reka[pozrek]!=0; pozrek++){
                 System.out.print(" " + reka[pozrek]);
@@ -124,6 +126,7 @@ class Blackjack {
             
             if (wynik>krupier) {
                 System.out.println("-------WYGRAŁEŚ------");
+                Singleton.inst().zm_wartosc();
                 
                 if (krupier == 0) {
                     System.out.println("krupier przekroczył 21!");
@@ -138,6 +141,7 @@ class Blackjack {
             }
             if (wynik<krupier) {
                 System.out.println("--------PRZEGRAŁEŚ--------");
+                Singleton.inst().zw_wartosc();
                 System.out.println("krupier miał wynik: " + krupier);
             }
         }
@@ -148,7 +152,42 @@ class Blackjack {
 class J_Bandyta {
         
     public void J_Bandyta() {
-        System.out.println("dzialam (bandyta)");
+        klawisz klawisz = new klawisz();
+        Random rand = new Random();
+        int los=0;
+        int linia1[] = new int[3], linia2[] = new int[3], linia3[] = new int[3], x[]=new int[3];
+        
+        for (int z=1; z<4; z++) {
+            
+            for (int i=0; i<3; i++) {
+                x[i] = rand.nextInt(8)+1;
+            }
+
+            while (x[0]==x[1] || x[0]==x[2] || x[1]==x[2]) {
+                if (x[0]==x[1] || x[0]==x[2]){
+                    x[0]+=1;
+                    if (x[0]>9) {
+                        x[0]=1;
+                    };
+                }
+                if (x[1]==x[2]){
+                    x[1]+=1;
+                    if (x[1]>9) {
+                        x[1]=1;
+                    };
+                }
+            }
+        
+            if (z==1) linia1=x;
+            if (z==2) linia2=x;
+            if (z==3) linia3=x;
+            
+            for (int i=0; i<3; i++) {
+                System.out.print(x[i]+" ");
+            }
+            System.out.println();
+            
+        }
     }
 }
 
@@ -170,17 +209,16 @@ class Singleton {
     
     public int wartosc () {
         return fundusze;
-    }
+    }   
     
-    public int zw_wartosc () {
+    public void zw_wartosc () {
         fundusze += 100;
-        return fundusze;
     }
     
-    public int zm_wartosc () {
+    public void zm_wartosc () {
         fundusze -= 100;
-        return fundusze;
     }
+    
     
     
 }
@@ -210,6 +248,7 @@ public class Singleton2 {
         
         
         while (wybor==0) { 
+        System.out.println("KASA KASYNA: "+ Singleton.inst().wartosc());      
         System.out.println("WYBIERZ GRE");
         System.out.println("1 - Blackjack");
         System.out.println("2 - Jednoręki Bandyta");
@@ -222,6 +261,8 @@ public class Singleton2 {
                 break;
                     
                 case 2: bandyta.J_Bandyta();
+                        System.out.println("Wciśnij 1 aby zakończyć");
+                        klawisz.klawisz();
                 break;
                     
                 case 3: break;
